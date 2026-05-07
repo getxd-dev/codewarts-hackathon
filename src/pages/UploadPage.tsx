@@ -76,7 +76,7 @@ export function UploadPage() {
   }
 
   return (
-    <section className="mx-auto max-w-6xl px-4 py-10 sm:px-6 lg:px-8">
+    <section className={["mx-auto px-4 py-10 sm:px-6 lg:px-8", mode === "generate" ? "max-w-7xl" : "max-w-6xl"].join(" ")}>
       <SectionHeader
         eyebrow="Computer Vision"
         title="Resume analysis"
@@ -88,7 +88,7 @@ export function UploadPage() {
         <ModeButton active={mode === "generate"} icon={Sparkles} label="Generate Resume" onClick={() => setMode("generate")} />
       </div>
 
-      <div className={["mt-6 grid gap-6", mode === "generate" ? "xl:grid-cols-[1.45fr_0.55fr]" : "lg:grid-cols-[0.9fr_1.1fr]"].join(" ")}>
+      <div className={["mt-6 grid gap-6", mode === "generate" ? "2xl:grid-cols-[1.62fr_0.58fr]" : "lg:grid-cols-[0.9fr_1.1fr]"].join(" ")}>
         {mode === "upload" ? (
           <div className="rounded-lg border border-bayanihan-border bg-white p-6 shadow-soft">
             <div className="mb-5 flex items-center gap-3">

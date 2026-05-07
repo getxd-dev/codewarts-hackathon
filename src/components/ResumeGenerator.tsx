@@ -1,4 +1,5 @@
-import { Camera, CheckCircle2, FileText, RefreshCcw, ScanFace, ShieldCheck } from "lucide-react";
+import { Camera, CheckCircle2, FileText, Mail, MapPin, Maximize2, Phone, RefreshCcw, ScanFace, ShieldCheck, Sparkles, X } from "lucide-react";
+import type { LucideIcon } from "lucide-react";
 import { ChangeEvent, useEffect, useMemo, useRef, useState } from "react";
 import type { RefObject } from "react";
 import type { GeneratedResume, UserProfile } from "../types";
@@ -217,10 +218,10 @@ export function ResumeGenerator({
   const captureDisabled = !stream || !readiness.ready;
 
   return (
-    <div className="rounded-lg border border-bayanihan-border bg-white p-6 shadow-soft">
-      <div className="mb-5 flex items-center gap-3">
-        <span className="flex h-11 w-11 items-center justify-center rounded-md bg-bayanihan-blue/10 text-bayanihan-blue">
-          <FileText size={24} aria-hidden="true" />
+    <div className="rounded-lg border border-bayanihan-border bg-white p-4 shadow-soft sm:p-5">
+      <div className="mb-4 flex items-center gap-3">
+        <span className="flex h-10 w-10 items-center justify-center rounded-md bg-bayanihan-blue/10 text-bayanihan-blue">
+          <FileText size={22} aria-hidden="true" />
         </span>
         <div>
           <h2 className="text-xl font-bold text-bayanihan-ink">Generate resume</h2>
@@ -228,7 +229,7 @@ export function ResumeGenerator({
         </div>
       </div>
 
-      <div className="grid gap-6 lg:grid-cols-[0.9fr_1.1fr]">
+      <div className="grid gap-5 xl:grid-cols-[0.88fr_1.12fr]">
         <div className="space-y-4">
           <CameraPanel
             videoRef={videoRef}
@@ -245,7 +246,7 @@ export function ResumeGenerator({
             }}
           />
 
-          <div className="grid gap-4 sm:grid-cols-2">
+          <div className="grid gap-3 sm:grid-cols-2">
             <TextField label="Email" name="email" value={form.email} onChange={updateField} placeholder="candidate@email.com" />
             <TextField label="Phone" name="phone" value={form.phone} onChange={updateField} placeholder="09XX XXX XXXX" />
             <TextField label="Target role" name="targetRole" value={form.targetRole} onChange={updateField} className="sm:col-span-2" />
@@ -254,21 +255,8 @@ export function ResumeGenerator({
           </div>
         </div>
 
-        <div>
-          <div className="rounded-lg border border-bayanihan-border bg-bayanihan-mist p-5">
-            <div className="mb-4 flex items-center justify-between gap-3">
-              <div>
-                <h3 className="text-lg font-bold text-bayanihan-ink">Resume preview</h3>
-                <p className="text-sm text-bayanihan-muted">Generated beginner-role format</p>
-              </div>
-              {photoDataUrl ? (
-                <img src={photoDataUrl} alt="Captured applicant" className="h-16 w-16 rounded-md object-cover" />
-              ) : null}
-            </div>
-            <pre className="max-h-[34rem] overflow-auto whitespace-pre-wrap rounded-md border border-bayanihan-border bg-white p-4 text-sm leading-7 text-bayanihan-ink">
-              {resumeText}
-            </pre>
-          </div>
+        <div className="min-w-0">
+          <ResumePreviewCard profile={profile} form={form} photoDataUrl={photoDataUrl} resumeText={resumeText} />
 
           <button
             type="button"
@@ -287,6 +275,231 @@ export function ResumeGenerator({
 
       <canvas ref={canvasRef} className="hidden" aria-hidden="true" />
     </div>
+  );
+}
+
+function ResumePreviewCard({
+  profile,
+  form,
+  photoDataUrl,
+  resumeText,
+}: {
+  profile: UserProfile;
+  form: ResumeForm;
+  photoDataUrl: string;
+  resumeText: string;
+}) {
+  const [isFullPreviewOpen, setIsFullPreviewOpen] = useState(false);
+  const skills = parseSkills(profile.currentSkills);
+  const primarySkills = skills.length > 0 ? skills.slice(0, 5) : ["Communication", "Basic digital tools", "Willingness to learn"];
+  const contactItems = [
+    { icon: Mail, label: form.email || "Email available on request" },
+    { icon: Phone, label: form.phone || "Phone available on request" },
+    { icon: MapPin, label: profile.location || "Philippines" },
+  ];
+
+  return (
+    <div className="rounded-lg border border-bayanihan-border bg-bayanihan-mist p-3 shadow-soft sm:p-4">
+      <div className="mb-3 flex items-center justify-between gap-3">
+        <div>
+          <h3 className="text-lg font-bold text-bayanihan-ink">Resume preview</h3>
+          <p className="text-sm text-bayanihan-muted">Designed OportuniPH applicant card</p>
+        </div>
+        <span className="inline-flex items-center gap-2 rounded-md bg-bayanihan-blue/10 px-2.5 py-1.5 text-xs font-bold text-bayanihan-blue">
+          <Sparkles size={16} aria-hidden="true" />
+          Canva-style
+        </span>
+      </div>
+
+      <div className="relative mx-auto h-[30rem] max-w-4xl overflow-hidden rounded-lg border border-bayanihan-border bg-white shadow-soft">
+        <ResumeDesign
+          profile={profile}
+          form={form}
+          photoDataUrl={photoDataUrl}
+          primarySkills={primarySkills}
+          contactItems={contactItems}
+          compact
+        />
+        <div className="pointer-events-none absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-white via-white/85 to-transparent" aria-hidden="true" />
+      </div>
+
+      <button
+        type="button"
+        onClick={() => setIsFullPreviewOpen(true)}
+        className="mt-3 inline-flex min-h-10 w-full items-center justify-center gap-2 rounded-md border border-bayanihan-blue/30 bg-white px-3 text-sm font-bold text-bayanihan-blue transition hover:border-bayanihan-blue hover:bg-bayanihan-blue/5"
+      >
+        <Maximize2 size={16} aria-hidden="true" />
+        View full preview
+      </button>
+
+      <details className="mt-3 rounded-lg border border-bayanihan-border bg-white p-3">
+        <summary className="cursor-pointer text-sm font-bold text-bayanihan-blue">
+          AI text version used for matching
+        </summary>
+        <pre className="mt-3 max-h-48 overflow-auto whitespace-pre-wrap rounded-md bg-bayanihan-mist p-3 text-xs leading-6 text-bayanihan-ink">
+          {resumeText}
+        </pre>
+      </details>
+
+      {isFullPreviewOpen ? (
+        <div className="fixed inset-0 z-50 bg-bayanihan-ink/80 p-4 backdrop-blur-sm" role="dialog" aria-modal="true" aria-label="Full generated resume preview">
+          <div className="mx-auto flex max-h-[94vh] max-w-6xl flex-col overflow-hidden rounded-lg bg-white shadow-soft">
+            <div className="flex items-center justify-between gap-3 border-b border-bayanihan-border px-4 py-3">
+              <div>
+                <h3 className="text-lg font-bold text-bayanihan-ink">Full resume preview</h3>
+                <p className="text-sm text-bayanihan-muted">Complete designed version with full text visible.</p>
+              </div>
+              <button
+                type="button"
+                onClick={() => setIsFullPreviewOpen(false)}
+                className="inline-flex h-10 w-10 items-center justify-center rounded-md border border-bayanihan-border text-bayanihan-muted transition hover:border-bayanihan-red hover:text-bayanihan-red"
+                aria-label="Close full preview"
+              >
+                <X size={18} aria-hidden="true" />
+              </button>
+            </div>
+            <div className="overflow-auto bg-bayanihan-mist p-4">
+              <ResumeDesign
+                profile={profile}
+                form={form}
+                photoDataUrl={photoDataUrl}
+                primarySkills={primarySkills}
+                contactItems={contactItems}
+              />
+            </div>
+          </div>
+        </div>
+      ) : null}
+    </div>
+  );
+}
+
+function ResumeDesign({
+  profile,
+  form,
+  photoDataUrl,
+  primarySkills,
+  contactItems,
+  compact = false,
+}: {
+  profile: UserProfile;
+  form: ResumeForm;
+  photoDataUrl: string;
+  primarySkills: string[];
+  contactItems: { icon: LucideIcon; label: string }[];
+  compact?: boolean;
+}) {
+  return (
+    <article className="mx-auto max-w-4xl overflow-hidden rounded-lg border border-bayanihan-border bg-white shadow-soft">
+      <div className="grid md:grid-cols-[0.54fr_1.46fr]">
+        <aside className="bg-bayanihan-ink text-white">
+          <div className="border-b border-white/10 bg-bayanihan-green p-3">
+            <img src="/oportuniph-logo.png" alt="OportuniPH" className="h-auto w-36 rounded-md bg-white px-2 py-1.5" />
+          </div>
+
+          <div className="p-4">
+            <div className="mx-auto h-28 w-28 overflow-hidden rounded-2xl border-4 border-bayanihan-gold bg-white shadow-soft">
+              {photoDataUrl ? (
+                <img src={photoDataUrl} alt="Captured applicant" className="h-full w-full object-cover" />
+              ) : (
+                <div className="flex h-full w-full items-center justify-center bg-bayanihan-mist text-center text-sm font-bold text-bayanihan-muted">
+                  Photo pending
+                </div>
+              )}
+            </div>
+
+            <div className="mt-4 space-y-2">
+              {contactItems.map(({ icon: Icon, label }) => (
+                <div key={label} className="flex items-start gap-2 rounded-md bg-white/10 p-2">
+                  <Icon className="mt-0.5 shrink-0 text-bayanihan-gold" size={15} aria-hidden="true" />
+                  <span className="text-xs leading-5 text-white/85">{label}</span>
+                </div>
+              ))}
+            </div>
+
+            <div className="mt-4">
+              <h4 className="text-xs font-bold uppercase text-bayanihan-gold">Core skills</h4>
+              <div className="mt-2 flex flex-wrap gap-1.5">
+                {primarySkills.map((skill) => (
+                  <span key={skill} className="rounded-full bg-white px-2.5 py-1 text-[11px] font-bold text-bayanihan-ink">
+                    {skill}
+                  </span>
+                ))}
+              </div>
+            </div>
+          </div>
+        </aside>
+
+        <section className="relative bg-white p-4 sm:p-5">
+          <div className="absolute right-0 top-0 h-16 w-16 rounded-bl-[32px] bg-bayanihan-gold/40" aria-hidden="true" />
+          <div className="absolute bottom-0 right-0 h-2 w-full bg-gradient-to-r from-bayanihan-green via-bayanihan-gold to-bayanihan-blue" aria-hidden="true" />
+
+          <div className="relative">
+            <p className="text-xs font-bold uppercase text-bayanihan-blue">Applicant resume</p>
+            <h2 className="mt-1 text-2xl font-black leading-tight text-bayanihan-ink sm:text-3xl">
+              {profile.name || "Applicant Name"}
+            </h2>
+            <p className="mt-1 text-base font-bold text-bayanihan-green">
+              {form.targetRole || profile.careerInterest || "Entry-level digital role"}
+            </p>
+            <p className={["mt-3 max-w-2xl text-sm leading-6 text-bayanihan-muted", compact ? "max-h-24 overflow-hidden" : ""].join(" ")}>
+              {buildProfileSummary(profile)}
+            </p>
+
+            <div className="mt-4 grid gap-3 xl:grid-cols-2">
+              <ResumeSection
+                title="Training and education"
+                copy={form.training || defaultTraining}
+                accent="gold"
+                compact={compact}
+              />
+              <ResumeSection
+                title="Experience and community work"
+                copy={form.experience || defaultExperience}
+                accent="blue"
+                compact={compact}
+              />
+              <ResumeSection
+                title="Target opportunity pathway"
+                copy={buildPathwayCopy(profile, form, primarySkills)}
+                accent="red"
+                className="xl:col-span-2"
+                compact={compact}
+              />
+            </div>
+          </div>
+        </section>
+      </div>
+    </article>
+  );
+}
+
+function ResumeSection({
+  title,
+  copy,
+  accent,
+  className = "",
+  compact = false,
+}: {
+  title: string;
+  copy: string;
+  accent: "red" | "blue" | "gold";
+  className?: string;
+  compact?: boolean;
+}) {
+  const accentStyles = {
+    red: "border-bayanihan-green bg-bayanihan-green/5",
+    blue: "border-bayanihan-blue bg-bayanihan-blue/5",
+    gold: "border-bayanihan-gold bg-bayanihan-gold/15",
+  };
+
+  return (
+    <section className={["rounded-lg border-l-4 p-3", accentStyles[accent], className].join(" ")}>
+      <h3 className="text-xs font-bold uppercase text-bayanihan-ink">{title}</h3>
+      <p className={["mt-1.5 text-sm leading-6 text-bayanihan-muted", compact ? "max-h-24 overflow-hidden" : ""].join(" ")}>
+        {copy}
+      </p>
+    </section>
   );
 }
 
@@ -315,8 +528,8 @@ function CameraPanel({
   const readinessTone = readiness.ready ? "bg-bayanihan-green" : "bg-bayanihan-blue";
 
   return (
-    <div className="rounded-lg border border-bayanihan-border bg-slate-950 p-4 text-white">
-      <div className="relative aspect-[4/3] overflow-hidden rounded-md bg-slate-900">
+    <div className="rounded-lg border border-bayanihan-border bg-slate-950 p-3 text-white">
+      <div className="relative aspect-[16/10] overflow-hidden rounded-md bg-slate-900">
         {photoDataUrl ? (
           <img src={photoDataUrl} alt="Captured applicant preview" className="h-full w-full object-cover" />
         ) : (
@@ -333,9 +546,9 @@ function CameraPanel({
         </div>
       </div>
 
-      <p className="mt-3 text-sm leading-6 text-slate-200">{cameraMessage}</p>
+      <p className="mt-2 text-sm leading-6 text-slate-200">{cameraMessage}</p>
 
-      <div className="mt-3 rounded-md bg-white/10 p-3">
+      <div className="mt-2 rounded-md bg-white/10 p-2.5">
         <div className="flex items-center justify-between gap-3 text-sm font-bold">
           <span>{readiness.method}</span>
           <span>{readiness.score}%</span>
@@ -343,9 +556,9 @@ function CameraPanel({
         <div className="mt-2 h-2 overflow-hidden rounded-full bg-white/15">
           <div className={`h-full rounded-full ${readinessTone} transition-all`} style={{ width: `${readiness.score}%` }} />
         </div>
-        <div className="mt-3 grid gap-2">
+        <div className="mt-2 grid gap-1.5 sm:grid-cols-2">
           {readiness.checks.map((check) => (
-            <div key={check.key} className="flex items-start gap-2 rounded-md bg-black/20 px-3 py-2">
+            <div key={check.key} className="flex items-start gap-2 rounded-md bg-black/20 px-2.5 py-1.5">
               <span
                 className={[
                   "mt-1 h-2.5 w-2.5 shrink-0 rounded-full",
@@ -354,15 +567,15 @@ function CameraPanel({
                 aria-hidden="true"
               />
               <span>
-                <span className="block text-sm font-bold">{check.label}</span>
-                <span className="block text-xs leading-5 text-slate-300">{check.detail}</span>
+                <span className="block text-xs font-bold">{check.label}</span>
+                <span className="block text-[11px] leading-4 text-slate-300">{check.detail}</span>
               </span>
             </div>
           ))}
         </div>
       </div>
 
-      <div className="mt-4 flex flex-col gap-3 sm:flex-row">
+      <div className="mt-3 flex flex-col gap-2 sm:flex-row">
         {photoDataUrl ? (
           <button
             type="button"
@@ -411,7 +624,7 @@ function TextField({
 }) {
   return (
     <label className={["block", className].join(" ")}>
-      <span className="mb-2 block text-sm font-bold text-bayanihan-ink">{label}</span>
+      <span className="mb-1.5 block text-sm font-bold text-bayanihan-ink">{label}</span>
       <input className="min-h-11 w-full rounded-md border border-bayanihan-border bg-white px-3 text-bayanihan-ink" {...props} />
     </label>
   );
@@ -428,18 +641,32 @@ function TextArea({
 }) {
   return (
     <label className="block sm:col-span-2">
-      <span className="mb-2 block text-sm font-bold text-bayanihan-ink">{label}</span>
-      <textarea className="min-h-24 w-full rounded-md border border-bayanihan-border bg-white px-3 py-3 text-bayanihan-ink" {...props} />
+      <span className="mb-1.5 block text-sm font-bold text-bayanihan-ink">{label}</span>
+      <textarea className="min-h-20 w-full rounded-md border border-bayanihan-border bg-white px-3 py-2 text-bayanihan-ink" {...props} />
     </label>
   );
 }
 
-function buildResumeText(profile: UserProfile, form: ResumeForm, hasPhoto: boolean): string {
-  const skills = profile.currentSkills
+function parseSkills(skillsText: string): string[] {
+  return skillsText
     .split(",")
     .map((skill) => skill.trim())
-    .filter(Boolean)
-    .join(", ");
+    .filter(Boolean);
+}
+
+function buildProfileSummary(profile: UserProfile): string {
+  const name = profile.name || "The applicant";
+  return `${name} is a ${profile.age}-year-old ${profile.educationLevel.toLowerCase()} from ${profile.location || "the Philippines"}, currently classified as ${profile.employmentStatus.toLowerCase()}. The profile shows ${profile.internetAccess.toLowerCase()} internet access and ${profile.deviceAccess.toLowerCase()} device access.`;
+}
+
+function buildPathwayCopy(profile: UserProfile, form: ResumeForm, skills: string[]): string {
+  const target = form.targetRole || profile.careerInterest || "entry-level digital work";
+  const skillSignal = skills.length > 0 ? skills.slice(0, 3).join(", ") : "communication, basic digital tools, and willingness to learn";
+  return `Targeting ${target}. Recommended starting path: apply for roles that value ${skillSignal}, then complete short training to close missing skill gaps.`;
+}
+
+function buildResumeText(profile: UserProfile, form: ResumeForm, hasPhoto: boolean): string {
+  const skills = parseSkills(profile.currentSkills).join(", ");
 
   return [
     profile.name || "Applicant Name",
@@ -450,7 +677,7 @@ function buildResumeText(profile: UserProfile, form: ResumeForm, hasPhoto: boole
     form.targetRole || profile.careerInterest || "Entry-level digital or customer support role",
     "",
     "PROFILE SUMMARY",
-    `${profile.name || "The applicant"} is a ${profile.age}-year-old ${profile.educationLevel.toLowerCase()} from ${profile.location}. Current status: ${profile.employmentStatus}. Access context: ${profile.internetAccess.toLowerCase()} internet and ${profile.deviceAccess.toLowerCase()} device access.`,
+    buildProfileSummary(profile),
     "",
     "CORE SKILLS",
     skills || "Basic digital skills, communication, willingness to learn",
@@ -462,7 +689,7 @@ function buildResumeText(profile: UserProfile, form: ResumeForm, hasPhoto: boole
     form.experience,
     "",
     "TARGET OPPORTUNITY PATHWAY",
-    `Interested in ${profile.careerInterest || form.targetRole}. Recommended starting pathway: entry-level roles that value ${skills || "basic digital readiness"} with short training support.`,
+    `Interested in ${form.targetRole || profile.careerInterest || "entry-level digital work"}. Recommended starting pathway: entry-level roles that value ${skills || "basic digital readiness"} with short training support.`,
   ].join("\n");
 }
 
