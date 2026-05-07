@@ -1,0 +1,28 @@
+[
+  {
+    "name": "Local Government Educational Assistance",
+    "eligibility": ["Low income", "Student"],
+    "source": "Local government or school guidance office"
+  },
+  {
+    "name": "Skills Training Support Program",
+    "eligibility": ["Unemployed", "Out-of-school youth"],
+    "source": "TESDA or local Public Employment Service Office",
+    "sourceUrl": "https://tesda.gov.ph/"
+  },
+  {
+    "name": "Barangay Digital Access Voucher",
+    "eligibility": ["Limited internet", "Shared device", "Low income"],
+    "source": "Barangay, city, or NGO digital access desk"
+  },
+  {
+    "name": "Fresh Graduate Job Readiness Coaching",
+    "eligibility": ["Fresh graduate", "Unemployed", "Low income"],
+    "source": "PESO, school career office, or youth development office"
+  },
+  {
+    "name": "Community Learning Hub Referral",
+    "eligibility": ["Rural or relocation area", "Out-of-school youth", "Limited internet"],
+    "source": "Community learning hub or ALS coordinator"
+  }
+]

@@ -1,0 +1,50 @@
+[
+  {
+    "name": "Basic Excel for Beginners",
+    "skills": ["Excel", "Data entry"],
+    "provider": "Udemy",
+    "sourceUrl": "https://www.udemy.com/topic/excel/",
+    "level": "Beginner",
+    "costLabel": "Paid or promo-priced"
+  },
+  {
+    "name": "Resume Writing Workshop",
+    "skills": ["Resume writing", "Job readiness"],
+    "provider": "TESDA Online Program",
+    "sourceUrl": "https://www.e-tesda.gov.ph/course/",
+    "level": "Beginner",
+    "costLabel": "Available online"
+  },
+  {
+    "name": "Basic Digital Skills",
+    "skills": ["Computer literacy", "Internet use"],
+    "provider": "TESDA Online Program",
+    "sourceUrl": "https://www.e-tesda.gov.ph/course/",
+    "level": "Beginner",
+    "costLabel": "Available online"
+  },
+  {
+    "name": "English for Customer Support",
+    "skills": ["English communication", "Customer service"],
+    "provider": "Udemy",
+    "sourceUrl": "https://www.udemy.com/topic/customer-service/",
+    "level": "Beginner",
+    "costLabel": "Paid or promo-priced"
+  },
+  {
+    "name": "Virtual Assistant Starter Kit",
+    "skills": ["Email", "Calendar management", "Google Workspace"],
+    "provider": "Udemy",
+    "sourceUrl": "https://www.udemy.com/topic/virtual-assistant/",
+    "level": "Beginner",
+    "costLabel": "Paid or promo-priced"
+  },
+  {
+    "name": "Community Data Skills Bootcamp",
+    "skills": ["Google Sheets", "Forms processing", "Document scanning"],
+    "provider": "Google Data Analytics on Coursera",
+    "sourceUrl": "https://www.coursera.org/professional-certificates/google-data-analytics",
+    "level": "Beginner",
+    "costLabel": "Financial aid or subscription options"
+  }
+]

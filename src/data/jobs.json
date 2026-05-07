@@ -1,0 +1,54 @@
+[
+  {
+    "title": "Data Encoder",
+    "requiredSkills": ["Typing", "Excel", "Attention to detail"],
+    "education": "High School Graduate",
+    "location": "Remote / Hybrid",
+    "payRange": "PHP 18k-28k/mo",
+    "source": "BPO / back-office pathway",
+    "sourceUrl": "https://www.jobstreet.com.ph/data-encoder-jobs"
+  },
+  {
+    "title": "Customer Service Representative",
+    "requiredSkills": ["English communication", "Computer literacy"],
+    "education": "Senior High School Graduate",
+    "location": "Metro Manila / Remote",
+    "payRange": "PHP 20k-32k/mo",
+    "source": "BPO pathway",
+    "sourceUrl": "https://www.jobstreet.com.ph/customer-service-representative-jobs"
+  },
+  {
+    "title": "Virtual Assistant Trainee",
+    "requiredSkills": ["Email", "Calendar management", "Basic computer skills"],
+    "education": "Senior High School Graduate",
+    "location": "Remote",
+    "payRange": "PHP 20k-35k/mo",
+    "source": "Remote work pathway",
+    "sourceUrl": "https://www.onlinejobs.ph/jobseekers/jobsearch?jobkeyword=virtual+assistant"
+  },
+  {
+    "title": "Community Digital Records Assistant",
+    "requiredSkills": ["Data entry", "Google Sheets", "Document scanning"],
+    "education": "High School Graduate",
+    "location": "Barangay / City Hall",
+    "payRange": "Local project-based",
+    "source": "Community admin pathway"
+  },
+  {
+    "title": "Junior Social Media Assistant",
+    "requiredSkills": ["Canva", "Writing", "Facebook page management"],
+    "education": "Senior High School Graduate",
+    "location": "Remote / Local Business",
+    "payRange": "PHP 18k-30k/mo",
+    "source": "MSME digital support pathway",
+    "sourceUrl": "https://www.onlinejobs.ph/jobseekers/jobsearch?jobkeyword=social+media+assistant"
+  },
+  {
+    "title": "TESDA Training Intake Aide",
+    "requiredSkills": ["Customer service", "Forms processing", "Computer literacy"],
+    "education": "High School Graduate",
+    "location": "Learning Center",
+    "payRange": "Local project-based",
+    "source": "Training center pathway"
+  }
+]
