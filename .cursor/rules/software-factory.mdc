@@ -1,0 +1,12 @@
+---
+description: Software factory operating rules
+alwaysApply: true
+---
+
+- Read `AGENTS.md` before making code changes.
+- For meaningful work, create or update a plan before implementation.
+- Use `specs/` for intended behavior, `plans/` for implementation strategy, and `docs/` for current-state knowledge.
+- Prefer deterministic code guardrails over prompt-only instructions.
+- Ask review agents to inspect diffs before final handoff.
+- Promote repeated workflows into `.agents/skills/`.
+- Keep `DESIGN.md`, `docs/`, `specs/`, and `plans/` synchronized with material changes.
