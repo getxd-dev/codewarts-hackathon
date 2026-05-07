@@ -1,4 +1,4 @@
-# Bayanihan Bridge PH Pitch Script
+# OportuniPH Pitch Script
 
 ## Hook
 
@@ -10,11 +10,11 @@ Opportunity inequality is not only about motivation. It is shaped by education g
 
 ## Solution
 
-Bayanihan Bridge PH is an AI-powered talent marketplace for Filipino pathways. It asks for a short profile, analyzes an uploaded resume with Gemini 3.1 when configured, calculates an Opportunity Score, and recommends jobs, available courses, scholarships or support, missing skills, and the next three steps.
+OportuniPH is an AI-powered talent marketplace for Filipino pathways. It asks for a short profile, analyzes an uploaded resume or generates one with a camera-captured applicant photo, calculates an Opportunity Score, and recommends jobs, available courses, scholarships or support, missing skills, and the next three steps.
 
 ## Demo
 
-For the demo, we complete a profile, upload a resume, extract accurate resume signals, and generate a pathway. The result shows a score like 58 out of 100, matched beginner roles such as Data Encoder or Virtual Assistant Trainee, missing skills like Excel or interview readiness, and practical next steps.
+For the demo, we complete a profile, generate a resume from the profile, open the camera, align the applicant face inside the guide, capture a photo, and generate a pathway. Then we switch to the employer dashboard, create a job offer, and show it appearing in the Market page. The result is a two-sided flow for candidates and Filipino employers.
 
 ## Impact
 

@@ -1,4 +1,4 @@
-import { ArrowRight, BarChart3, ClipboardList, Database, Home, Network, Upload } from "lucide-react";
+import { ArrowRight, BriefcaseBusiness, ClipboardList, Database, Home, Network, Upload } from "lucide-react";
 import { NavLink } from "react-router-dom";
 import type { ReactNode } from "react";
 
@@ -8,7 +8,7 @@ const navItems = [
   { to: "/upload", label: "Analyze", icon: Upload },
   { to: "/results", label: "Matches", icon: ArrowRight },
   { to: "/opportunities", label: "Market", icon: Database },
-  { to: "/dashboard", label: "Analytics", icon: BarChart3 },
+  { to: "/dashboard", label: "Employers", icon: BriefcaseBusiness },
 ];
 
 export function AppLayout({ children }: { children: ReactNode }) {
@@ -21,7 +21,7 @@ export function AppLayout({ children }: { children: ReactNode }) {
               <Network size={22} aria-hidden="true" />
             </span>
             <span>
-              <span className="block text-base font-bold">Bayanihan Bridge PH</span>
+              <span className="block text-base font-bold">OportuniPH</span>
               <span className="block text-xs text-bayanihan-muted">Filipino talent marketplace</span>
             </span>
           </NavLink>
@@ -51,8 +51,8 @@ export function AppLayout({ children }: { children: ReactNode }) {
 
       <footer className="border-t border-bayanihan-border bg-white">
         <div className="mx-auto flex max-w-7xl flex-col gap-2 px-4 py-6 text-sm text-bayanihan-muted sm:px-6 lg:flex-row lg:items-center lg:justify-between lg:px-8">
-          <p>Bayanihan Bridge PH MVP. Local-first AI, CV, and Data Science demo.</p>
-          <p>Built for Filipino-market screening, matching, and skills pathways.</p>
+          <p>OportuniPH MVP. Local-first AI, CV, and marketplace demo.</p>
+          <p>Built for Filipino-market screening, matching, employer offers, and skills pathways.</p>
         </div>
       </footer>
     </div>

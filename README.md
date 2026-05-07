@@ -1,8 +1,8 @@
-# Bayanihan Bridge PH
+# OportuniPH
 
-Bayanihan Bridge PH is an AI-powered opportunity navigator for marginalized Filipino students, out-of-school youth, fresh graduates, and low-income job seekers.
+OportuniPH is an AI-powered opportunity navigator for marginalized Filipino students, out-of-school youth, fresh graduates, and low-income job seekers.
 
-The MVP turns a short profile plus an uploaded resume into an Opportunity Score, matched jobs, available courses, scholarships/support programs, skill gaps, and a personalized pathway.
+The MVP turns a short profile plus an uploaded or generated resume into an Opportunity Score, matched jobs, available courses, scholarships/support programs, skill gaps, and a personalized pathway.
 
 ## SDG Alignment
 
@@ -16,9 +16,9 @@ The MVP turns a short profile plus an uploaded resume into an Opportunity Score,
 - React + TypeScript
 - Vite
 - Tailwind CSS
-- Recharts
 - Local JSON sample data
 - Gemini 3.1 Pro Preview resume analysis and recommendation enrichment when `GEMINI_API_KEY` is configured
+- Camera-based resume generation with a face-alignment guide
 - Honest local text-file fallback
 - Deterministic local recommendation fallback
 - Deterministic Data Science scoring
@@ -57,10 +57,11 @@ npm run validate:factory
 1. Open the Home page.
 2. Click Start Assessment.
 3. Fill in a user profile for a student, fresh graduate, out-of-school youth, or job seeker.
-4. Upload a resume PDF, resume image, or resume text file.
-5. Analyze the resume. With `GEMINI_API_KEY`, PDFs/images/text are processed by Gemini 3.1 Pro Preview and the top jobs, available courses, and support matches are enriched with Gemini reasoning. Without a key, text files are read directly and binary files show a configuration-required state.
-6. Generate the pathway.
-7. Show the Results page:
+4. Upload a resume PDF/image/text file or choose Generate Resume.
+5. In Generate Resume, open the camera, align the applicant face inside the oval guide, capture a photo, and use the profile-based resume preset.
+6. Analyze the resume. With `GEMINI_API_KEY`, PDFs/images/text are processed by Gemini 3.1 Pro Preview and the top jobs, available courses, and support matches are enriched with Gemini reasoning. Without a key, text files and generated resumes still work locally.
+7. Generate the pathway.
+8. Show the Results page:
    - Opportunity Score
    - readiness classification
    - top 3 jobs
@@ -69,12 +70,13 @@ npm run validate:factory
    - missing skills
    - next 3 steps
    - market-fit insights
-8. Open Market to show local JSON fallback data and course links.
-9. Open Analytics to show Data Science readiness and matching charts.
+9. Open Market to show local JSON fallback data and course links.
+10. Open Employers to create a job offer and show the two-sided marketplace flow.
 
 ## Limitations
 
 - Accurate PDF/image analysis requires a Gemini API key.
+- Live face alignment uses the browser `FaceDetector` API when available; unsupported browsers fall back to local camera-frame alignment checks.
 - AI recommendations use Gemini when configured and fall back to deterministic local matching.
 - Opportunity datasets are sample data only.
 - No authentication, backend, scraping, or production government integration is included.

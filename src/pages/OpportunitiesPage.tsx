@@ -4,6 +4,7 @@ import { useMemo, useState } from "react";
 import { OpportunityCard } from "../components/OpportunityCard";
 import { SectionHeader } from "../components/SectionHeader";
 import { courses, jobs, supportPrograms } from "../lib/opportunityEngine";
+import { loadEmployerJobOffers } from "../lib/storage";
 
 type OpportunityTab = "Jobs" | "Courses" | "Support";
 
@@ -16,11 +17,12 @@ const tabs: { name: OpportunityTab; icon: LucideIcon }[] = [
 export function OpportunitiesPage() {
   const [tab, setTab] = useState<OpportunityTab>("Jobs");
   const [query, setQuery] = useState("");
+  const [employerOffers] = useState(() => loadEmployerJobOffers());
   const normalizedQuery = query.toLowerCase();
 
   const content = useMemo(() => {
     if (tab === "Jobs") {
-      return jobs
+      const sampleJobs = jobs
         .filter((job) => `${job.title} ${job.requiredSkills.join(" ")} ${job.location}`.toLowerCase().includes(normalizedQuery))
         .map((job) => (
           <OpportunityCard
@@ -37,6 +39,26 @@ export function OpportunitiesPage() {
             actionLabel="Search roles"
           />
         ));
+
+      const postedJobs = employerOffers
+        .filter((offer) => `${offer.title} ${offer.requiredSkills.join(" ")} ${offer.location} ${offer.companyName}`.toLowerCase().includes(normalizedQuery))
+        .map((offer) => (
+          <OpportunityCard
+            key={offer.id}
+            title={offer.title}
+            subtitle={`${offer.companyName} · ${offer.location}`}
+            details={[
+              `Setup: ${offer.workSetup} · ${offer.employmentType}`,
+              `Required skills: ${offer.requiredSkills.join(", ")}`,
+              `Education: ${offer.education}`,
+              `Pay signal: ${offer.payRange}`,
+              `Contact: ${offer.contact}`,
+            ]}
+            actionLabel="Employer-posted"
+          />
+        ));
+
+      return [...postedJobs, ...sampleJobs];
     }
 
     if (tab === "Courses") {
@@ -66,7 +88,7 @@ export function OpportunitiesPage() {
           actionLabel="View source"
         />
       ));
-  }, [normalizedQuery, tab]);
+  }, [employerOffers, normalizedQuery, tab]);
 
   return (
     <section className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">

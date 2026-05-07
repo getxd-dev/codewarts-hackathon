@@ -1,4 +1,4 @@
-import { ArrowRight, BarChart3, FileText, GraduationCap, Sparkles } from "lucide-react";
+import { ArrowRight, BriefcaseBusiness, FileText, GraduationCap, Sparkles } from "lucide-react";
 import { Link } from "react-router-dom";
 import { MetricCard } from "../components/MetricCard";
 
@@ -13,7 +13,7 @@ export function HomePage() {
               Match Filipino talent to work-ready opportunities
             </h1>
             <p className="mt-5 max-w-2xl text-lg leading-8 text-bayanihan-muted">
-              Upload a resume once. Get a readiness score, role matches, course links, and a concrete next-step path for the Philippine job market.
+              Upload or generate a resume with a camera-captured applicant photo. Get a readiness score, role matches, course links, and a concrete next-step path for the Philippine job market.
             </p>
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
               <Link
@@ -27,8 +27,8 @@ export function HomePage() {
                 to="/dashboard"
                 className="inline-flex min-h-12 items-center justify-center gap-2 rounded-md border border-bayanihan-border bg-white px-5 py-3 font-bold text-bayanihan-ink transition hover:border-bayanihan-green hover:text-bayanihan-green"
               >
-                View Analytics
-                <BarChart3 size={18} aria-hidden="true" />
+                Employer Dashboard
+                <BriefcaseBusiness size={18} aria-hidden="true" />
               </Link>
             </div>
           </div>

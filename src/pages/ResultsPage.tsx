@@ -199,7 +199,7 @@ export function ResultsPage() {
             to="/dashboard"
             className="inline-flex min-h-11 items-center justify-center gap-2 rounded-md bg-bayanihan-blue px-5 font-bold text-white transition hover:bg-blue-800"
           >
-            Open Analytics
+            Open Employer Dashboard
             <ArrowRight size={18} aria-hidden="true" />
           </Link>
         </div>

@@ -1,6 +1,6 @@
 # AGENTS.md
 
-This is the operating contract for humans and AI agents working on Bayanihan Bridge PH.
+This is the operating contract for humans and AI agents working on OportuniPH.
 
 ## Core Rules
 
@@ -25,7 +25,7 @@ This is the operating contract for humans and AI agents working on Bayanihan Bri
 
 - Use React, TypeScript, Tailwind CSS, local JSON data, and deterministic functions.
 - Keep scoring rules transparent and easy to explain during a live pitch.
-- Use Gemini document analysis when `GEMINI_API_KEY` is configured; keep text-file fallback honest and non-fabricated.
+- Use Gemini document analysis when `GEMINI_API_KEY` is configured; keep text-file and generated-resume fallback honest and non-fabricated.
 - Keep recommendation logic understandable: profile + document text + local opportunity data.
 - Make the UI mobile-responsive for students, barangay users, and demo judges.
 - Use accessible labels, clear validation states, and readable contrast.
@@ -45,7 +45,8 @@ npm run validate:factory
 
 - The full assessment flow works from landing page to results.
 - File upload produces Gemini analysis when configured or direct text extraction for text files.
+- Generated resume flow captures an applicant photo or clearly explains camera limitations.
 - Opportunity Score stays in the 0-100 range with a visible classification.
 - Results show jobs, available courses, support programs, skill gaps, next steps, and market fit.
-- Dashboard charts render from local data.
+- Employer dashboard can create local job offers and surface them in Market.
 - README and pitch script explain the demo clearly.

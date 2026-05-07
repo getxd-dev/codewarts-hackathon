@@ -1,8 +1,8 @@
-# Bayanihan Bridge PH MVP Spec
+# OportuniPH MVP Spec
 
 ## Product Intent
 
-Bayanihan Bridge PH is an AI-powered opportunity navigator for marginalized Filipino students, out-of-school youth, fresh graduates, and low-income job seekers. The MVP helps a user move from profile and resume upload to a clear opportunity score, matched jobs, available courses, support programs, missing skills, and a personalized next-step pathway.
+OportuniPH is an AI-powered opportunity navigator for marginalized Filipino students, out-of-school youth, fresh graduates, and low-income job seekers. The MVP helps a user move from profile and uploaded or generated resume to a clear opportunity score, matched jobs, available courses, support programs, missing skills, and a personalized next-step pathway.
 
 ## Problem
 
@@ -17,21 +17,22 @@ Opportunity inequality in the Philippines is widened by uneven access to educati
 
 ## Required Fields
 
-- Computer Vision: resume upload and Gemini resume analysis with honest text-file fallback.
+- Computer Vision: resume upload, camera photo capture with face-alignment guide, and Gemini resume analysis with honest text-file fallback.
 - Artificial Intelligence: personalized opportunity recommendations using Gemini when configured and deterministic local matching as fallback.
-- Data Science: opportunity scoring, skill gap percentage, job match percentage, and dashboard metrics.
+- Data Science: opportunity scoring, skill gap percentage, job match percentage, and market-fit signals.
 
 ## Core User Flow
 
 1. User opens the landing page.
 2. User starts the assessment.
 3. User completes a short profile.
-4. User uploads a resume PDF, image, or text file.
-5. The app extracts readable resume text.
-6. The app combines profile and resume text.
-7. The app calculates an Opportunity Score from 0 to 100.
-8. The app recommends jobs, courses, scholarships/support, missing skills, and next steps.
-9. The app shows a talent-market readiness dashboard.
+4. User uploads a resume PDF/image/text file or generates a resume from the saved profile.
+5. For generated resumes, the user opens the camera, aligns their face inside the guide, captures a photo, and applies a preset.
+6. The app extracts or creates readable resume text.
+7. The app combines profile and resume text.
+8. The app calculates an Opportunity Score from 0 to 100.
+9. The app recommends jobs, courses, scholarships/support, missing skills, and next steps.
+10. Employers can create local job offers that appear in the marketplace.
 
 ## MVP Pages
 
@@ -40,7 +41,7 @@ Opportunity inequality in the Philippines is widened by uneven access to educati
 - Document Upload / Analysis Page
 - Results Page
 - Opportunities Page
-- Dashboard Page
+- Employer Dashboard Page
 
 ## Scoring Requirements
 
@@ -70,17 +71,14 @@ Results must include:
 - Personalized next-step pathway
 - Market-fit insights
 
-## Dashboard Requirements
+## Employer Dashboard Requirements
 
-Dashboard must show:
+Employer dashboard must support:
 
-- Total users assessed
-- Most common skill gaps
-- Total role matches
-- Total course matches
-- High-support users
-- Community/location insights
-- Users by opportunity-readiness level
+- Create a job offer with company, title, location, setup, pay, education, skills, description, and contact.
+- Persist created offers in localStorage for demo continuity.
+- Show created offers in the dashboard.
+- Surface created offers in the Market page Jobs tab.
 
 ## Non-Goals
 
@@ -95,6 +93,7 @@ Dashboard must show:
 
 - App runs locally with `npm run dev`.
 - User can complete assessment, upload a resume, run Gemini or text-file analysis, and see results.
+- User can generate a resume from profile inputs and a captured applicant photo.
 - App works without external API keys.
 - Local JSON data powers opportunities.
 - Score, recommendation, and dashboard logic are deterministic and testable.

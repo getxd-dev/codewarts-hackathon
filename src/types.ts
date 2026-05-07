@@ -46,9 +46,36 @@ export interface JobOpportunity {
   requiredSkills: string[];
   education: EducationLevel;
   location: string;
+  companyName?: string;
+  employmentType?: string;
   payRange?: string;
   source?: string;
   sourceUrl?: string;
+  description?: string;
+  contact?: string;
+  createdAt?: string;
+}
+
+export interface EmployerJobOffer {
+  id: string;
+  companyName: string;
+  title: string;
+  location: string;
+  workSetup: "Remote" | "Hybrid" | "Onsite";
+  employmentType: "Full-time" | "Part-time" | "Internship" | "Project-based";
+  payRange: string;
+  education: EducationLevel;
+  requiredSkills: string[];
+  description: string;
+  contact: string;
+  createdAt: string;
+}
+
+export interface GeneratedResume {
+  templateName: string;
+  generatedText: string;
+  photoDataUrl?: string;
+  createdAt: string;
 }
 
 export interface CourseOpportunity {

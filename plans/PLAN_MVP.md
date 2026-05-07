@@ -2,17 +2,16 @@
 
 ## Goal
 
-Build the first hackathon MVP of Bayanihan Bridge PH as a local React/Tailwind app with software-factory artifacts, deterministic scoring, Gemini-ready resume analysis, Gemini recommendation enrichment, local datasets, dashboard charts, README, and pitch script.
+Build the first hackathon MVP of OportuniPH as a local React/Tailwind app with software-factory artifacts, deterministic scoring, Gemini-ready resume analysis, profile-based resume generation with camera capture, Gemini recommendation enrichment, local datasets, employer job-offer creation, README, and pitch script.
 
 ## Architecture
 
 - Use Vite + React + TypeScript for fast local development.
 - Use Tailwind CSS for responsive UI.
 - Use `react-router-dom` for MVP page routing.
-- Use local JSON files for jobs, courses, scholarships/support programs, and mock dashboard users.
+- Use local JSON files for jobs, courses, scholarships/support programs, and mock assessed users.
 - Use Gemini 3.1 Pro Preview through a local dev proxy when `GEMINI_API_KEY` is configured.
-- Use deterministic TypeScript functions for text fallback, scoring, and recommendations.
-- Use Recharts for dashboard charts.
+- Use deterministic TypeScript functions for text fallback, generated resumes, scoring, recommendations, and local employer offers.
 
 ## File-Level Plan
 
@@ -23,9 +22,9 @@ Build the first hackathon MVP of Bayanihan Bridge PH as a local React/Tailwind a
 - `src/data/*.json`: local jobs, courses, support, and mock users.
 - `src/lib/ocr.ts`: file upload Gemini resume analysis and local text extraction.
 - `src/lib/geminiRecommendations.ts`: optional Gemini enrichment for top jobs, available courses, and support programs.
-- `src/lib/opportunityEngine.ts`: score, job matching, local recommendations, dashboard metrics.
+- `src/lib/opportunityEngine.ts`: score, job matching, and local recommendations.
 - `src/lib/storage.ts`: localStorage helpers for demo continuity.
-- `src/components/*`: reusable UI cards, layout, badges, score ring, charts.
+- `src/components/*`: reusable UI cards, layout, resume generator, badges, and score ring.
 - `src/pages/*`: Home, Assessment, Upload, Results, Opportunities, Dashboard.
 - `README.md`: overview, run steps, demo flow, limitations, next phase.
 - `pitch/PITCH_SCRIPT.md`: short recorded-demo pitch.
@@ -38,11 +37,13 @@ Build the first hackathon MVP of Bayanihan Bridge PH as a local React/Tailwind a
 - Score readiness across education, skills, access, employment, social barriers, and document availability.
 - Calculate skill gap percentage and best job match percentage.
 - Classify users into support/readiness levels.
-- Aggregate mock and current-user data for talent-market dashboard charts.
+- Keep scoring outputs transparent enough to explain during the employer and candidate demo flow.
 
 ## Document Analysis Plan
 
 - Accept uploaded resume image, PDF, or text file.
+- Offer a generated-resume path using profile inputs, preset resume copy, and captured applicant photo.
+- Use browser face detection when available to confirm the applicant face is aligned inside the camera guide.
 - Send uploads to Gemini 3.1 Pro Preview through `/api/gemini/analyze-document` when configured.
 - If no Gemini key is configured, read text files directly and do not fabricate binary document content.
 - Surface confidence, model name, extracted text, and detected signals so judges can see the CV/AI step during the demo.

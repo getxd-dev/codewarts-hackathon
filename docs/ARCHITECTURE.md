@@ -2,7 +2,7 @@
 
 ## Summary
 
-Bayanihan Bridge PH is a Vite React app with a small local development proxy for Gemini resume analysis and recommendation enrichment. Profile state is stored in browser localStorage, opportunities come from JSON files, and recommendations use Gemini when configured with a deterministic TypeScript fallback.
+OportuniPH is a Vite React app with a small local development proxy for Gemini resume analysis and recommendation enrichment. Profile state is stored in browser localStorage, opportunities come from JSON files, resumes can be uploaded or generated from profile plus camera capture, and recommendations use Gemini when configured with a deterministic TypeScript fallback.
 
 ## Runtime Surfaces
 
@@ -10,6 +10,7 @@ Bayanihan Bridge PH is a Vite React app with a small local development proxy for
 - `src/App.tsx`: route layout and page registration.
 - `src/pages/`: six MVP pages.
 - `src/components/`: reusable UI components.
+- `src/components/ResumeGenerator.tsx`: profile-based resume preset with camera capture and face-alignment guide.
 - `src/data/`: sample jobs, courses, support programs, and mock assessed users.
 - `src/lib/ocr.ts`: Gemini resume analysis client and local text-file fallback.
 - `src/lib/geminiRecommendations.ts`: Gemini-backed ranking and reasoning merge for jobs, courses, and support programs.
@@ -23,13 +24,15 @@ Bayanihan Bridge PH is a Vite React app with a small local development proxy for
 flowchart LR
     Home["Home"] --> Form["Assessment Form"]
     Form --> Upload["Document Upload"]
+    Form --> Builder["Generated Resume + Camera Photo"]
+    Builder --> Engine
     Upload --> Analysis["Gemini Resume Analysis / Text Extraction"]
     Analysis --> Engine["Opportunity Engine"]
     Engine --> GeminiRank["Gemini Match Enrichment"]
     GeminiRank --> Results["Results Page"]
     Engine --> Results["Results Page"]
     Engine --> Opportunities["Opportunities Page"]
-    Engine --> Dashboard["Impact Dashboard"]
+    Engine --> Employers["Employer Dashboard"]
 ```
 
 ## Opportunity Engine
@@ -51,9 +54,13 @@ When `GEMINI_API_KEY` is configured, uploaded resumes are sent through the local
 
 If no Gemini key is configured, text-like files are read directly. Binary files are not fabricated; the app shows a clear configuration-required state.
 
-## Dashboard Strategy
+## Generated Resume Strategy
 
-Dashboard charts combine local mock user analytics with the current assessment result when available. This gives judges a fuller market view while keeping the app demo-capable.
+The Analyze page also offers a generated-resume path for users who do not have a finished resume. It uses the saved profile, a beginner-role preset, optional contact fields, training and experience prompts, and a camera-captured applicant photo. Browser face detection is attempted with `FaceDetector`; if unavailable, the app checks the camera frame locally for oval coverage, lighting, contrast, and face-like color signals.
+
+## Employer Dashboard Strategy
+
+The employer dashboard lets demo employers create local job offers without authentication or a backend. Offers are stored in localStorage and surfaced in the Market page so judges can see a simple two-sided marketplace loop.
 
 ## Future Integration Points
 
