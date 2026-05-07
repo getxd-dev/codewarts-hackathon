@@ -27,8 +27,14 @@ export function OpportunitiesPage() {
             key={job.title}
             title={job.title}
             subtitle={job.location}
-            details={[`Required skills: ${job.requiredSkills.join(", ")}`, `Education: ${job.education}`]}
-            sdg={job.sdg}
+            details={[
+              `Required skills: ${job.requiredSkills.join(", ")}`,
+              `Education: ${job.education}`,
+              `Pay signal: ${job.payRange ?? "Varies by employer"}`,
+              `Source: ${job.source ?? "Local pathway"}`,
+            ]}
+            href={job.sourceUrl}
+            actionLabel="Search roles"
           />
         ));
     }
@@ -41,8 +47,9 @@ export function OpportunitiesPage() {
             key={course.name}
             title={course.name}
             subtitle={course.provider}
-            details={[`Skills: ${course.skills.join(", ")}`]}
-            sdg={course.sdg}
+            details={[`Level: ${course.level}`, `Access: ${course.costLabel}`, `Skills: ${course.skills.join(", ")}`]}
+            href={course.sourceUrl}
+            actionLabel="Open course"
           />
         ));
     }
@@ -54,8 +61,9 @@ export function OpportunitiesPage() {
           key={program.name}
           title={program.name}
           subtitle="Scholarship or support program"
-          details={[`Eligibility: ${program.eligibility.join(", ")}`]}
-          sdg={program.sdg}
+          details={[`Eligibility: ${program.eligibility.join(", ")}`, `Source: ${program.source ?? "Local referral"}`]}
+          href={program.sourceUrl}
+          actionLabel="View source"
         />
       ));
   }, [normalizedQuery, tab]);
@@ -64,8 +72,8 @@ export function OpportunitiesPage() {
     <section className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
       <SectionHeader
         eyebrow="Local Data"
-        title="Opportunity dataset"
-        copy="Sample jobs, courses, and support programs are bundled locally so the MVP remains reliable during a live demo."
+        title="Filipino-market opportunity dataset"
+        copy="Sample jobs, available courses, and support programs are bundled locally so the MVP remains reliable during a live demo."
       />
 
       <div className="mt-8 flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">

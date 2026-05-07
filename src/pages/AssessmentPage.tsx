@@ -2,7 +2,7 @@ import { ArrowRight, RotateCcw } from "lucide-react";
 import { FormEvent, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { SectionHeader } from "../components/SectionHeader";
-import { demoProfile } from "../lib/demoProfile";
+import { demoProfile, sampleProfile } from "../lib/demoProfile";
 import { clearDemoState, saveProfile } from "../lib/storage";
 import type { AccessLevel, EducationLevel, EmploymentStatus, SocialStatus, UserProfile } from "../types";
 
@@ -54,12 +54,16 @@ export function AssessmentPage() {
     setProfile(demoProfile);
   }
 
+  function loadSampleProfile() {
+    setProfile(sampleProfile);
+  }
+
   return (
     <section className="mx-auto max-w-5xl px-4 py-10 sm:px-6 lg:px-8">
       <SectionHeader
         eyebrow="Assessment"
-        title="Opportunity profile"
-        copy="A short profile gives the recommendation engine enough context to score readiness and match local opportunities."
+        title="Talent profile"
+        copy="A short profile gives the screening engine enough context to score readiness and match Filipino-market role pathways."
       />
 
       <form onSubmit={handleSubmit} className="mt-8 rounded-lg border border-bayanihan-border bg-white p-5 shadow-soft sm:p-7">
@@ -116,14 +120,23 @@ export function AssessmentPage() {
         </div>
 
         <div className="mt-7 flex flex-col gap-3 sm:flex-row sm:justify-between">
-          <button
-            type="button"
-            onClick={resetDemo}
-            className="inline-flex min-h-11 items-center justify-center gap-2 rounded-md border border-bayanihan-border bg-white px-4 font-bold text-bayanihan-muted transition hover:border-bayanihan-green hover:text-bayanihan-green"
-          >
-            <RotateCcw size={18} aria-hidden="true" />
-            Reset Demo
-          </button>
+          <div className="flex flex-col gap-3 sm:flex-row">
+            <button
+              type="button"
+              onClick={resetDemo}
+              className="inline-flex min-h-11 items-center justify-center gap-2 rounded-md border border-bayanihan-border bg-white px-4 font-bold text-bayanihan-muted transition hover:border-bayanihan-green hover:text-bayanihan-green"
+            >
+              <RotateCcw size={18} aria-hidden="true" />
+              Clear
+            </button>
+            <button
+              type="button"
+              onClick={loadSampleProfile}
+              className="inline-flex min-h-11 items-center justify-center rounded-md border border-bayanihan-border bg-white px-4 font-bold text-bayanihan-muted transition hover:border-bayanihan-blue hover:text-bayanihan-blue"
+            >
+              Load Demo Profile
+            </button>
+          </div>
           <button
             type="submit"
             className="inline-flex min-h-11 items-center justify-center gap-2 rounded-md bg-bayanihan-green px-5 font-bold text-white transition hover:bg-teal-800"

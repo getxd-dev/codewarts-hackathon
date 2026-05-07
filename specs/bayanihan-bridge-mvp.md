@@ -2,11 +2,11 @@
 
 ## Product Intent
 
-Bayanihan Bridge PH is an AI-powered opportunity navigator for marginalized Filipino students, out-of-school youth, fresh graduates, and low-income job seekers. The MVP helps a user move from profile and document upload to a clear opportunity score, matched jobs, free training, support programs, missing skills, and a personalized next-step pathway.
+Bayanihan Bridge PH is an AI-powered opportunity navigator for marginalized Filipino students, out-of-school youth, fresh graduates, and low-income job seekers. The MVP helps a user move from profile and resume upload to a clear opportunity score, matched jobs, available courses, support programs, missing skills, and a personalized next-step pathway.
 
 ## Problem
 
-Opportunity inequality in the Philippines is widened by uneven access to education, devices, internet, job-readiness support, and reliable information about scholarships or entry-level work. Many users have records, certificates, resumes, or forms but need help translating them into practical next steps.
+Opportunity inequality in the Philippines is widened by uneven access to education, devices, internet, job-readiness support, and reliable information about scholarships or entry-level work. Many users have a resume but need help translating it into practical next steps.
 
 ## SDG Alignment
 
@@ -17,8 +17,8 @@ Opportunity inequality in the Philippines is widened by uneven access to educati
 
 ## Required Fields
 
-- Computer Vision: document upload and OCR/mock OCR text extraction.
-- Artificial Intelligence: personalized opportunity recommendations using rule-based mock AI.
+- Computer Vision: resume upload and Gemini resume analysis with honest text-file fallback.
+- Artificial Intelligence: personalized opportunity recommendations using Gemini when configured and deterministic local matching as fallback.
 - Data Science: opportunity scoring, skill gap percentage, job match percentage, and dashboard metrics.
 
 ## Core User Flow
@@ -26,18 +26,18 @@ Opportunity inequality in the Philippines is widened by uneven access to educati
 1. User opens the landing page.
 2. User starts the assessment.
 3. User completes a short profile.
-4. User uploads a resume, certificate, school record, or handwritten form.
-5. The app extracts or simulates readable document text.
-6. The app combines profile and document text.
+4. User uploads a resume PDF, image, or text file.
+5. The app extracts readable resume text.
+6. The app combines profile and resume text.
 7. The app calculates an Opportunity Score from 0 to 100.
 8. The app recommends jobs, courses, scholarships/support, missing skills, and next steps.
-9. The app shows an SDG impact dashboard.
+9. The app shows a talent-market readiness dashboard.
 
 ## MVP Pages
 
 - Home / Landing Page
 - Assessment Form
-- Document Upload / OCR Page
+- Document Upload / Analysis Page
 - Results Page
 - Opportunities Page
 - Dashboard Page
@@ -64,11 +64,11 @@ Classification:
 Results must include:
 
 - Top 3 jobs
-- Top 3 free courses or training programs
+- Top 3 available courses or training programs
 - Top 3 scholarships or support programs
 - Missing skills
 - Personalized next-step pathway
-- SDG badges
+- Market-fit insights
 
 ## Dashboard Requirements
 
@@ -76,10 +76,10 @@ Dashboard must show:
 
 - Total users assessed
 - Most common skill gaps
-- Number of SDG 4 recommendations
-- Number of SDG 8 recommendations
-- Number of SDG 10 supported users
-- Number of SDG 11 community/location insights
+- Total role matches
+- Total course matches
+- High-support users
+- Community/location insights
 - Users by opportunity-readiness level
 
 ## Non-Goals
@@ -94,7 +94,7 @@ Dashboard must show:
 ## Acceptance Criteria
 
 - App runs locally with `npm run dev`.
-- User can complete assessment, upload a file, run OCR/mock OCR, and see results.
+- User can complete assessment, upload a resume, run Gemini or text-file analysis, and see results.
 - App works without external API keys.
 - Local JSON data powers opportunities.
 - Score, recommendation, and dashboard logic are deterministic and testable.

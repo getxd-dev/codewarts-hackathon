@@ -25,8 +25,8 @@ This is the operating contract for humans and AI agents working on Bayanihan Bri
 
 - Use React, TypeScript, Tailwind CSS, local JSON data, and deterministic functions.
 - Keep scoring rules transparent and easy to explain during a live pitch.
-- Keep OCR mocked or local-first; no paid API should be required for the wow feature.
-- Keep recommendation logic understandable: profile + OCR text + local opportunity data.
+- Use Gemini document analysis when `GEMINI_API_KEY` is configured; keep text-file fallback honest and non-fabricated.
+- Keep recommendation logic understandable: profile + document text + local opportunity data.
 - Make the UI mobile-responsive for students, barangay users, and demo judges.
 - Use accessible labels, clear validation states, and readable contrast.
 
@@ -44,8 +44,8 @@ npm run validate:factory
 ## Review Checklist
 
 - The full assessment flow works from landing page to results.
-- File upload produces extracted text even without real OCR.
+- File upload produces Gemini analysis when configured or direct text extraction for text files.
 - Opportunity Score stays in the 0-100 range with a visible classification.
-- Results show jobs, courses, support programs, skill gaps, next steps, and SDG alignment.
+- Results show jobs, available courses, support programs, skill gaps, next steps, and market fit.
 - Dashboard charts render from local data.
 - README and pitch script explain the demo clearly.

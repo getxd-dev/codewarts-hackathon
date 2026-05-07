@@ -1,19 +1,19 @@
 import { ArrowUpRight } from "lucide-react";
-import { SdgBadge } from "./SdgBadge";
-import type { SdgTag } from "../types";
 
 export function OpportunityCard({
   title,
   subtitle,
   details,
-  sdg,
   metric,
+  href,
+  actionLabel = "View",
 }: {
   title: string;
   subtitle: string;
   details: string[];
-  sdg: SdgTag[];
   metric?: string;
+  href?: string;
+  actionLabel?: string;
 }) {
   return (
     <article className="rounded-lg border border-bayanihan-border bg-white p-5 shadow-soft">
@@ -38,11 +38,17 @@ export function OpportunityCard({
           </li>
         ))}
       </ul>
-      <div className="mt-4 flex flex-wrap gap-2">
-        {sdg.map((tag) => (
-          <SdgBadge key={tag} tag={tag} />
-        ))}
-      </div>
+      {href ? (
+        <a
+          href={href}
+          target="_blank"
+          rel="noreferrer"
+          className="mt-4 inline-flex min-h-10 items-center gap-2 rounded-md border border-bayanihan-border px-3 text-sm font-bold text-bayanihan-green transition hover:border-bayanihan-green"
+        >
+          {actionLabel}
+          <ArrowUpRight size={16} aria-hidden="true" />
+        </a>
+      ) : null}
     </article>
   );
 }

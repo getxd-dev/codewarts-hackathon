@@ -40,7 +40,7 @@ Bayanihan Bridge PH should feel hopeful, trustworthy, local, and practical. It i
 
 - Buttons use icons from `lucide-react` when the action has a familiar symbol.
 - Form fields use visible labels and short helper text only when needed for clarity.
-- SDG badges should be visible and consistent across cards.
+- Keep public-facing UI focused on talent screening, role matching, course paths, and support referrals.
 - Progress bars and score rings should make results easy to understand at a glance.
 - Charts should support the pitch, not overwhelm it.
 
@@ -48,10 +48,10 @@ Bayanihan Bridge PH should feel hopeful, trustworthy, local, and practical. It i
 
 - Home: show the product name, social-impact promise, and a strong assessment entry point in the first viewport.
 - Assessment: keep the form short and forgiving.
-- Upload: make the OCR/mock OCR state obvious and confidence-based.
+- Upload: make the Gemini or text-extraction analysis state obvious and confidence-based.
 - Results: make the score, top matches, missing skills, and next steps visually memorable.
 - Opportunities: show local datasets without pretending to be a full marketplace.
-- Dashboard: show SDG and readiness impact for hackathon judges.
+- Dashboard: show readiness, skill gaps, matching volume, and location insight for hackathon judges.
 
 ## Non-Goals
 

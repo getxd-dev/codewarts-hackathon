@@ -7,27 +7,26 @@ import { OpportunityCard } from "../components/OpportunityCard";
 import { ProgressBar } from "../components/ProgressBar";
 import { ScoreRing } from "../components/ScoreRing";
 import { SectionHeader } from "../components/SectionHeader";
-import { SdgBadge } from "../components/SdgBadge";
-import { demoProfile } from "../lib/demoProfile";
+import { demoProfile, sampleProfile } from "../lib/demoProfile";
 import { calculateOpportunityAnalysis } from "../lib/opportunityEngine";
 import { loadAnalysis, loadOcrResult, loadProfile } from "../lib/storage";
-import type { OpportunityAnalysis, SdgTag } from "../types";
+import type { OpportunityAnalysis } from "../types";
 
 const demoAnalysis = calculateOpportunityAnalysis(
-  demoProfile,
+  sampleProfile,
   "Resume detected: typing, email, basic computer skills, data entry, Facebook page management, and customer service exposure.",
 );
 
 export function ResultsPage() {
-  const profile = loadProfile() ?? demoProfile;
+  const profile = loadProfile() ?? sampleProfile ?? demoProfile;
   const ocrResult = loadOcrResult();
   const analysis: OpportunityAnalysis = loadAnalysis() ?? demoAnalysis;
 
   return (
     <section className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
       <SectionHeader
-        eyebrow="AI Recommendation"
-        title={`${profile.name || "Your"} opportunity pathway`}
+        eyebrow="AI Screening"
+        title={`${profile.name || "Your"} match report`}
         copy={analysis.summary}
       />
 
@@ -47,7 +46,10 @@ export function ResultsPage() {
             </span>
             <div>
               <h2 className="text-xl font-bold text-bayanihan-ink">Personalized pathway</h2>
-              <p className="text-sm text-bayanihan-muted">Generated from profile, OCR text, and local opportunity data</p>
+              <p className="text-sm text-bayanihan-muted">
+                Generated from profile, resume analysis, local market data
+                {analysis.recommendationModel ? `, and ${analysis.recommendationModel}` : ""}
+              </p>
             </div>
           </div>
           <p className="rounded-lg border border-bayanihan-border bg-bayanihan-mist p-4 leading-7 text-bayanihan-ink">
@@ -107,7 +109,8 @@ export function ResultsPage() {
           </div>
           {ocrResult ? (
             <div className="mt-5 rounded-md border border-bayanihan-border bg-bayanihan-mist p-4 text-sm leading-7 text-bayanihan-muted">
-              OCR confidence: <strong>{ocrResult.confidence}%</strong>. Method: {ocrResult.method}.
+              Document confidence: <strong>{ocrResult.confidence}%</strong>. Method: {ocrResult.method}
+              {ocrResult.model ? ` (${ocrResult.model})` : ""}.
             </div>
           ) : null}
         </div>
@@ -123,22 +126,36 @@ export function ResultsPage() {
               title={match.job.title}
               subtitle={match.job.location}
               metric={`${match.matchPercentage}%`}
-              details={[`Required education: ${match.job.education}`, `Matched: ${match.matchedSkills.join(", ") || "Needs training"}`, `Gaps: ${match.missingSkills.join(", ") || "No major skill gap"}`]}
-              sdg={match.job.sdg}
+              details={[
+                `Required education: ${match.job.education}`,
+                `Pay signal: ${match.job.payRange ?? "Varies by employer"}`,
+                `Matched: ${match.matchedSkills.join(", ") || "Needs training"}`,
+                `Gaps: ${match.missingSkills.join(", ") || "No major skill gap"}`,
+                match.insight?.reason ? `Gemini analysis: ${match.insight.reason}` : `Source: ${match.job.source ?? "Local pathway"}`,
+              ]}
+              href={match.insight?.sourceUrl || match.job.sourceUrl}
+              actionLabel="Search roles"
             />
           ))}
         />
         <RecommendationSection
           icon={GraduationCap}
-          title="Free courses"
+          title="Available Courses"
           children={analysis.topCourses.map((match) => (
             <OpportunityCard
               key={match.course.name}
               title={match.course.name}
               subtitle={match.course.provider}
               metric={`${match.relevancePercentage}%`}
-              details={[`Builds: ${match.course.skills.join(", ")}`, `Covers gaps: ${match.matchedGapSkills.join(", ") || "General readiness"}`]}
-              sdg={match.course.sdg}
+              details={[
+                `Level: ${match.course.level}`,
+                `Access: ${match.course.costLabel}`,
+                `Builds: ${match.course.skills.join(", ")}`,
+                `Covers gaps: ${match.matchedGapSkills.join(", ") || "General readiness"}`,
+                match.insight?.reason ? `Gemini analysis: ${match.insight.reason}` : `Source: ${match.course.provider}`,
+              ]}
+              href={match.insight?.sourceUrl || match.course.sourceUrl}
+              actionLabel="Open course"
             />
           ))}
         />
@@ -151,8 +168,13 @@ export function ResultsPage() {
               title={match.program.name}
               subtitle="Scholarship or support program"
               metric={`${match.relevancePercentage}%`}
-              details={[`Eligibility: ${match.program.eligibility.join(", ")}`, `Matched: ${match.matchedEligibility.join(", ") || "General support"}`]}
-              sdg={match.program.sdg}
+              details={[
+                `Eligibility: ${match.program.eligibility.join(", ")}`,
+                `Matched: ${match.matchedEligibility.join(", ") || "General support"}`,
+                match.insight?.reason ? `Gemini analysis: ${match.insight.reason}` : `Source: ${match.program.source ?? "Local referral"}`,
+              ]}
+              href={match.insight?.sourceUrl || match.program.sourceUrl}
+              actionLabel="View source"
             />
           ))}
         />
@@ -163,22 +185,21 @@ export function ResultsPage() {
           <div>
             <h2 className="flex items-center gap-2 text-xl font-bold text-bayanihan-ink">
               <ListChecks size={22} aria-hidden="true" />
-              SDG impact summary
+              Market fit summary
             </h2>
-            <div className="mt-4 flex flex-wrap gap-2">
-              {(Object.keys(analysis.sdgImpact) as SdgTag[]).map((tag) => (
-                <span key={tag} className="inline-flex items-center gap-2">
-                  <SdgBadge tag={tag} />
-                  <span className="text-sm font-bold text-bayanihan-muted">{analysis.sdgImpact[tag]}</span>
-                </span>
+            <ul className="mt-4 grid gap-2 text-sm text-bayanihan-muted md:grid-cols-3">
+              {analysis.documentInsights.map((insight) => (
+                <li key={insight} className="rounded-md border border-bayanihan-border bg-bayanihan-mist p-3">
+                  {insight}
+                </li>
               ))}
-            </div>
+            </ul>
           </div>
           <Link
             to="/dashboard"
             className="inline-flex min-h-11 items-center justify-center gap-2 rounded-md bg-bayanihan-blue px-5 font-bold text-white transition hover:bg-blue-800"
           >
-            Open Dashboard
+            Open Analytics
             <ArrowRight size={18} aria-hidden="true" />
           </Link>
         </div>

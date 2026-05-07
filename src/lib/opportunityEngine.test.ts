@@ -9,7 +9,7 @@ describe("opportunityEngine", () => {
     expect(classifyScore(86)).toBe("Opportunity-ready");
   });
 
-  it("detects common skills from profile and OCR text", () => {
+  it("detects common skills from profile and document text", () => {
     const skills = detectSkills("I know Excel, email, typing, and customer service.");
 
     expect(skills).toContain("Excel");
@@ -30,6 +30,6 @@ describe("opportunityEngine", () => {
     expect(analysis.topCourses).toHaveLength(3);
     expect(analysis.topSupportPrograms.length).toBeGreaterThan(0);
     expect(analysis.nextSteps).toHaveLength(3);
-    expect(analysis.sdgImpact["SDG 4"]).toBeGreaterThan(0);
+    expect(analysis.documentInsights.length).toBeGreaterThan(0);
   });
 });

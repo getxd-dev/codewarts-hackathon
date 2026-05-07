@@ -1,9 +1,9 @@
 import type { OcrResult, OpportunityAnalysis, UserProfile } from "../types";
 
 const keys = {
-  profile: "bayanihan.profile",
-  ocr: "bayanihan.ocr",
-  analysis: "bayanihan.analysis",
+  profile: "bayanihan.v2.profile",
+  ocr: "bayanihan.v2.documentAnalysis",
+  analysis: "bayanihan.v2.analysis",
 };
 
 export function saveProfile(profile: UserProfile): void {

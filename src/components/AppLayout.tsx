@@ -4,11 +4,11 @@ import type { ReactNode } from "react";
 
 const navItems = [
   { to: "/", label: "Home", icon: Home },
-  { to: "/assessment", label: "Assessment", icon: ClipboardList },
-  { to: "/upload", label: "Upload", icon: Upload },
-  { to: "/results", label: "Results", icon: ArrowRight },
-  { to: "/opportunities", label: "Opportunities", icon: Database },
-  { to: "/dashboard", label: "Dashboard", icon: BarChart3 },
+  { to: "/assessment", label: "Profile", icon: ClipboardList },
+  { to: "/upload", label: "Analyze", icon: Upload },
+  { to: "/results", label: "Matches", icon: ArrowRight },
+  { to: "/opportunities", label: "Market", icon: Database },
+  { to: "/dashboard", label: "Analytics", icon: BarChart3 },
 ];
 
 export function AppLayout({ children }: { children: ReactNode }) {
@@ -22,7 +22,7 @@ export function AppLayout({ children }: { children: ReactNode }) {
             </span>
             <span>
               <span className="block text-base font-bold">Bayanihan Bridge PH</span>
-              <span className="block text-xs text-bayanihan-muted">Opportunity navigator</span>
+              <span className="block text-xs text-bayanihan-muted">Filipino talent marketplace</span>
             </span>
           </NavLink>
           <nav aria-label="Main navigation" className="flex gap-1 overflow-x-auto pb-1 lg:pb-0">
@@ -52,7 +52,7 @@ export function AppLayout({ children }: { children: ReactNode }) {
       <footer className="border-t border-bayanihan-border bg-white">
         <div className="mx-auto flex max-w-7xl flex-col gap-2 px-4 py-6 text-sm text-bayanihan-muted sm:px-6 lg:flex-row lg:items-center lg:justify-between lg:px-8">
           <p>Bayanihan Bridge PH MVP. Local-first AI, CV, and Data Science demo.</p>
-          <p>Aligned with SDG 4, SDG 8, SDG 10, and SDG 11.</p>
+          <p>Built for Filipino-market screening, matching, and skills pathways.</p>
         </div>
       </footer>
     </div>

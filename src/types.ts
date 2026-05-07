@@ -24,11 +24,9 @@ export type SocialStatus =
 
 export type AccessLevel = "Reliable" | "Shared" | "Limited" | "None";
 
-export type DocumentType = "Resume" | "Certificate" | "School Record" | "Handwritten Form";
+export type DocumentType = "Resume";
 
 export type ReadinessLevel = "High support needed" | "Moderate support needed" | "Opportunity-ready";
-
-export type SdgTag = "SDG 4" | "SDG 8" | "SDG 10" | "SDG 11";
 
 export interface UserProfile {
   name: string;
@@ -48,20 +46,25 @@ export interface JobOpportunity {
   requiredSkills: string[];
   education: EducationLevel;
   location: string;
-  sdg: SdgTag[];
+  payRange?: string;
+  source?: string;
+  sourceUrl?: string;
 }
 
 export interface CourseOpportunity {
   name: string;
   skills: string[];
   provider: string;
-  sdg: SdgTag[];
+  sourceUrl: string;
+  level: string;
+  costLabel: string;
 }
 
 export interface SupportProgram {
   name: string;
   eligibility: string[];
-  sdg: SdgTag[];
+  source?: string;
+  sourceUrl?: string;
 }
 
 export interface OcrResult {
@@ -70,6 +73,16 @@ export interface OcrResult {
   method: string;
   detectedDocumentType: DocumentType;
   highlights: string[];
+  analyzer: string;
+  model?: string;
+  candidateName?: string;
+  warnings?: string[];
+}
+
+export interface RecommendationInsight {
+  reason: string;
+  sourceLabel?: string;
+  sourceUrl?: string;
 }
 
 export interface JobMatch {
@@ -77,18 +90,21 @@ export interface JobMatch {
   matchPercentage: number;
   matchedSkills: string[];
   missingSkills: string[];
+  insight?: RecommendationInsight;
 }
 
 export interface CourseMatch {
   course: CourseOpportunity;
   relevancePercentage: number;
   matchedGapSkills: string[];
+  insight?: RecommendationInsight;
 }
 
 export interface SupportMatch {
   program: SupportProgram;
   relevancePercentage: number;
   matchedEligibility: string[];
+  insight?: RecommendationInsight;
 }
 
 export interface ScoreBreakdown {
@@ -114,7 +130,8 @@ export interface OpportunityAnalysis {
   nextSteps: string[];
   pathway: string;
   summary: string;
-  sdgImpact: Record<SdgTag, number>;
+  documentInsights: string[];
+  recommendationModel?: string;
 }
 
 export interface MockAssessedUser {
@@ -123,5 +140,6 @@ export interface MockAssessedUser {
   readinessLevel: ReadinessLevel;
   score: number;
   skillGaps: string[];
-  sdgRecommendations: SdgTag[];
+  roleMatches: number;
+  courseMatches: number;
 }

@@ -5,7 +5,8 @@
     "readinessLevel": "Moderate support needed",
     "score": 58,
     "skillGaps": ["Excel", "Resume writing", "Interview readiness"],
-    "sdgRecommendations": ["SDG 4", "SDG 8", "SDG 10"]
+    "roleMatches": 3,
+    "courseMatches": 4
   },
   {
     "id": "u-002",
@@ -13,7 +14,8 @@
     "readinessLevel": "Opportunity-ready",
     "score": 76,
     "skillGaps": ["Calendar management", "Google Workspace"],
-    "sdgRecommendations": ["SDG 8", "SDG 10"]
+    "roleMatches": 5,
+    "courseMatches": 3
   },
   {
     "id": "u-003",
@@ -21,7 +23,8 @@
     "readinessLevel": "High support needed",
     "score": 36,
     "skillGaps": ["Computer literacy", "Internet use", "Resume writing"],
-    "sdgRecommendations": ["SDG 4", "SDG 10", "SDG 11"]
+    "roleMatches": 1,
+    "courseMatches": 5
   },
   {
     "id": "u-004",
@@ -29,7 +32,8 @@
     "readinessLevel": "Moderate support needed",
     "score": 64,
     "skillGaps": ["English communication", "Customer service"],
-    "sdgRecommendations": ["SDG 4", "SDG 8", "SDG 10"]
+    "roleMatches": 4,
+    "courseMatches": 3
   },
   {
     "id": "u-005",
@@ -37,7 +41,8 @@
     "readinessLevel": "Moderate support needed",
     "score": 49,
     "skillGaps": ["Data entry", "Google Sheets", "Document scanning"],
-    "sdgRecommendations": ["SDG 4", "SDG 8", "SDG 11"]
+    "roleMatches": 2,
+    "courseMatches": 5
   },
   {
     "id": "u-006",
@@ -45,7 +50,8 @@
     "readinessLevel": "Opportunity-ready",
     "score": 82,
     "skillGaps": ["Interview readiness"],
-    "sdgRecommendations": ["SDG 8", "SDG 10"]
+    "roleMatches": 6,
+    "courseMatches": 2
   },
   {
     "id": "u-007",
@@ -53,7 +59,8 @@
     "readinessLevel": "High support needed",
     "score": 31,
     "skillGaps": ["Computer literacy", "Basic computer skills", "Internet use"],
-    "sdgRecommendations": ["SDG 4", "SDG 10", "SDG 11"]
+    "roleMatches": 1,
+    "courseMatches": 4
   },
   {
     "id": "u-008",
@@ -61,6 +68,7 @@
     "readinessLevel": "Moderate support needed",
     "score": 67,
     "skillGaps": ["Excel", "Attention to detail"],
-    "sdgRecommendations": ["SDG 4", "SDG 8", "SDG 10"]
+    "roleMatches": 4,
+    "courseMatches": 3
   }
 ]

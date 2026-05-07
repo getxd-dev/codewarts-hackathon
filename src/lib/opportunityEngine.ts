@@ -13,7 +13,6 @@ import type {
   MockAssessedUser,
   OpportunityAnalysis,
   ReadinessLevel,
-  SdgTag,
   ScoreBreakdown,
   SocialStatus,
   SupportMatch,
@@ -25,8 +24,6 @@ export const jobs = jobsData as JobOpportunity[];
 export const courses = coursesData as CourseOpportunity[];
 export const supportPrograms = supportProgramsData as SupportProgram[];
 export const mockUsers = mockUsersData as MockAssessedUser[];
-
-const sdgTags: SdgTag[] = ["SDG 4", "SDG 8", "SDG 10", "SDG 11"];
 
 const skillAliases: Record<string, string[]> = {
   "Attention to detail": ["attention to detail", "accuracy", "detail oriented", "quality checking"],
@@ -102,12 +99,12 @@ export function calculateOpportunityAnalysis(
   const jobMatchPercentage = topJobs[0]?.matchPercentage ?? 0;
   const skillGapPercentage = calculateSkillGapPercentage(topJobs);
   const nextSteps = generateNextSteps(missingSkills, topCourses, topJobs, topSupportPrograms);
-  const sdgImpact = countSdgImpact(topJobs, topCourses, topSupportPrograms);
   const pathway = generatePathway(profile, score, topJobs, missingSkills, nextSteps);
+  const documentInsights = buildDocumentInsights(extractedText, detectedSkills, missingSkills);
   const summary = `Based on your profile, your current opportunity score is ${score}/100. You are best matched for ${topJobs
     .slice(0, 3)
     .map((match) => match.job.title)
-    .join(", ")} beginner pathways. Your biggest skill gaps are ${formatList(missingSkills.slice(0, 3))}.`;
+    .join(", ")} pathways in the Filipino market. Your biggest skill gaps are ${formatList(missingSkills.slice(0, 3))}.`;
 
   return {
     score,
@@ -123,7 +120,7 @@ export function calculateOpportunityAnalysis(
     nextSteps,
     pathway,
     summary,
-    sdgImpact,
+    documentInsights,
   };
 }
 
@@ -242,32 +239,37 @@ export function buildDashboardMetrics(current?: OpportunityAnalysis) {
         readinessLevel: current.readinessLevel,
         score: current.score,
         skillGaps: current.missingSkills.slice(0, 4),
-        sdgRecommendations: sdgTags.filter((tag) => current.sdgImpact[tag] > 0),
+        roleMatches: current.topJobs.length,
+        courseMatches: current.topCourses.length,
       }
     : null;
 
   const users = currentUser ? [...mockUsers, currentUser] : mockUsers;
   const readinessCounts = countBy(users.map((user) => user.readinessLevel));
   const gapCounts = countBy(users.flatMap((user) => user.skillGaps));
-  const sdgCounts = countBy(users.flatMap((user) => user.sdgRecommendations));
   const locationCounts = countBy(users.map((user) => user.location));
+  const averageScore = Math.round(users.reduce((sum, user) => sum + user.score, 0) / users.length);
 
   return {
     totalUsers: users.length,
+    averageScore,
+    totalRoleMatches: users.reduce((sum, user) => sum + user.roleMatches, 0),
+    totalCourseMatches: users.reduce((sum, user) => sum + user.courseMatches, 0),
+    highSupportUsers: users.filter((user) => user.readinessLevel === "High support needed").length,
     readinessChart: Object.entries(readinessCounts).map(([name, value]) => ({ name, value })),
     skillGapChart: Object.entries(gapCounts)
       .map(([name, value]) => ({ name, value }))
       .sort((left, right) => right.value - left.value)
       .slice(0, 6),
-    sdgChart: sdgTags.map((tag) => ({ name: tag, value: sdgCounts[tag] ?? 0 })),
+    matchChart: [
+      { name: "Role matches", value: users.reduce((sum, user) => sum + user.roleMatches, 0) },
+      { name: "Course matches", value: users.reduce((sum, user) => sum + user.courseMatches, 0) },
+      { name: "High-support users", value: users.filter((user) => user.readinessLevel === "High support needed").length },
+    ],
     locationChart: Object.entries(locationCounts)
       .map(([name, value]) => ({ name, value }))
       .sort((left, right) => right.value - left.value)
       .slice(0, 6),
-    sdg4Recommendations: sdgCounts["SDG 4"] ?? 0,
-    sdg8Recommendations: sdgCounts["SDG 8"] ?? 0,
-    sdg10SupportedUsers: sdgCounts["SDG 10"] ?? 0,
-    sdg11CommunityInsights: sdgCounts["SDG 11"] ?? 0,
   };
 }
 
@@ -307,30 +309,25 @@ function generatePathway(
   const supportPhrase =
     score <= 40 ? "start with access and foundational digital support" : score <= 70 ? "build two missing skills" : "apply while strengthening one priority skill";
 
-  return `${profile.name || "This user"} should ${supportPhrase}, then target ${topJobs[0]?.job.title ?? "an entry-level role"}. Priority gaps: ${formatList(
+  return `${profile.name || "The candidate"} should ${supportPhrase}, then target ${topJobs[0]?.job.title ?? "an entry-level role"}. Priority gaps: ${formatList(
     missingSkills.slice(0, 3),
   )}. Next move: ${nextSteps[0]}`;
 }
 
-function countSdgImpact(
-  topJobs: JobMatch[],
-  topCourses: CourseMatch[],
-  topSupportPrograms: SupportMatch[],
-): Record<SdgTag, number> {
-  const counts: Record<SdgTag, number> = {
-    "SDG 4": 0,
-    "SDG 8": 0,
-    "SDG 10": 0,
-    "SDG 11": 0,
-  };
+function buildDocumentInsights(extractedText: string, detectedSkills: string[], missingSkills: string[]): string[] {
+  const insights = [
+    extractedText.trim().length > 80
+      ? "Document has enough readable text for profile scoring."
+      : "Resume signal is limited; add a clearer resume for stronger matching.",
+    detectedSkills.length > 0
+      ? `Detected ${detectedSkills.length} marketable skill signal${detectedSkills.length === 1 ? "" : "s"}.`
+      : "No clear skill signals were detected from the uploaded document.",
+    missingSkills.length > 0
+      ? `Top development focus: ${formatList(missingSkills.slice(0, 2))}.`
+      : "Current document covers the core skills for the top matched roles.",
+  ];
 
-  [...topJobs.map((item) => item.job.sdg), ...topCourses.map((item) => item.course.sdg), ...topSupportPrograms.map((item) => item.program.sdg)]
-    .flat()
-    .forEach((tag) => {
-      counts[tag] += 1;
-    });
-
-  return counts;
+  return insights;
 }
 
 function hasSkill(detectedSkills: string[], requiredSkill: string): boolean {
