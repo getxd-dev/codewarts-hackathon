@@ -1,0 +1,38 @@
+[
+  {
+    "name": "Basic Excel for Beginners",
+    "skills": ["Excel", "Data entry"],
+    "provider": "Free Online Training",
+    "sdg": ["SDG 4", "SDG 8"]
+  },
+  {
+    "name": "Resume Writing Workshop",
+    "skills": ["Resume writing", "Job readiness"],
+    "provider": "Community Training",
+    "sdg": ["SDG 4", "SDG 8"]
+  },
+  {
+    "name": "Basic Digital Skills",
+    "skills": ["Computer literacy", "Internet use"],
+    "provider": "Barangay Learning Hub",
+    "sdg": ["SDG 4", "SDG 10", "SDG 11"]
+  },
+  {
+    "name": "English for Customer Support",
+    "skills": ["English communication", "Customer service"],
+    "provider": "Public Library Learning Circle",
+    "sdg": ["SDG 4", "SDG 8", "SDG 10"]
+  },
+  {
+    "name": "Virtual Assistant Starter Kit",
+    "skills": ["Email", "Calendar management", "Google Workspace"],
+    "provider": "Free Online Training",
+    "sdg": ["SDG 4", "SDG 8"]
+  },
+  {
+    "name": "Community Data Skills Bootcamp",
+    "skills": ["Google Sheets", "Forms processing", "Document scanning"],
+    "provider": "City Youth Development Office",
+    "sdg": ["SDG 4", "SDG 8", "SDG 11"]
+  }
+]

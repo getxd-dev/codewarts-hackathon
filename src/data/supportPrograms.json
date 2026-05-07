@@ -1,0 +1,27 @@
+[
+  {
+    "name": "Local Government Educational Assistance",
+    "eligibility": ["Low income", "Student"],
+    "sdg": ["SDG 4", "SDG 10"]
+  },
+  {
+    "name": "Skills Training Support Program",
+    "eligibility": ["Unemployed", "Out-of-school youth"],
+    "sdg": ["SDG 4", "SDG 8", "SDG 10"]
+  },
+  {
+    "name": "Barangay Digital Access Voucher",
+    "eligibility": ["Limited internet", "Shared device", "Low income"],
+    "sdg": ["SDG 4", "SDG 10", "SDG 11"]
+  },
+  {
+    "name": "Fresh Graduate Job Readiness Coaching",
+    "eligibility": ["Fresh graduate", "Unemployed", "Low income"],
+    "sdg": ["SDG 4", "SDG 8", "SDG 10"]
+  },
+  {
+    "name": "Community Learning Hub Referral",
+    "eligibility": ["Rural or relocation area", "Out-of-school youth", "Limited internet"],
+    "sdg": ["SDG 4", "SDG 10", "SDG 11"]
+  }
+]
